@@ -33,6 +33,7 @@
 
 <script>
 import { useQuasar } from 'quasar';
+import { instance } from '../boot/axios';
 let $q;
 export default {
   name: 'RegistrationPage',
@@ -45,7 +46,7 @@ export default {
     };
   },
   methods: {
-    registrationHandler() {
+    async registrationHandler() {
       if (!this.registration.email || !this.registration.password) {
         $q.notify({
           type: 'negative',
@@ -57,7 +58,15 @@ export default {
           message: 'Password must ne more then 6 symbols!',
         });
       } else {
-        console.log('registration');
+        const userData = {
+          email: this.registration.email,
+          password: this.registration.password,
+        };
+        await instance.post('user', userData);
+        $q.notify({
+          type: 'positive',
+          message: 'You are registered!',
+        });
       }
     },
   },
