@@ -1,5 +1,5 @@
 <template>
-  <div class="column items-center fixed-center">
+  <q-page class="column items-center justify-center">
     <h6 class="text-h6 q-my-none text-weight-regular">Registration</h6>
     <q-form
       class="q-gutter-md"
@@ -24,11 +24,11 @@
       </div>
     </q-form>
     <div class="text-center q-mt-md q-gutter-lg">
-      <RouterLink class="text-white" to="/login">
+      <RouterLink class="router_link" style="color: black" to="/login">
         Already have an account?
       </RouterLink>
     </div>
-  </div>
+  </q-page>
 </template>
 
 <script>
