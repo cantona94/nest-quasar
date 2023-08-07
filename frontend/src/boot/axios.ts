@@ -1,5 +1,5 @@
-import { boot } from 'quasar/wrappers';
 import axios, { AxiosInstance } from 'axios';
+import { getTokenFromLocalStorage } from '../helpers/localStorage.helper';
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
@@ -16,4 +16,7 @@ declare module '@vue/runtime-core' {
 // for each client)
 export const instance = axios.create({
   baseURL: 'http://localhost:3000',
+  headers: {
+    Authorization: 'Bearer ' + getTokenFromLocalStorage() || '',
+  },
 });

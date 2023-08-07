@@ -33,6 +33,8 @@
 
 <script>
 import { useQuasar } from 'quasar';
+import { instance } from '../boot/axios';
+import { setTokenToLocalStorage } from '../helpers/localStorage.helper';
 let $q;
 export default {
   name: 'LoginPage',
@@ -45,7 +47,7 @@ export default {
     };
   },
   methods: {
-    loginHandler() {
+    async loginHandler() {
       if (!this.login.email || !this.login.password) {
         $q.notify({
           type: 'negative',
@@ -57,7 +59,18 @@ export default {
           message: 'Password must ne more then 6 symbols!',
         });
       } else {
-        console.log('login');
+        const userData = {
+          email: this.login.email,
+          password: this.login.password,
+        };
+        const { data } = await instance.post('auth/login', userData);
+        if (data) {
+          setTokenToLocalStorage('token', data.token);
+          $q.notify({
+            type: 'positive',
+            message: 'You are logged in',
+          });
+        }
       }
     },
   },
