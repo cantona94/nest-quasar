@@ -1,10 +1,14 @@
+import { IUser } from "src/types/types";
+
 export interface ExampleStateInterface {
-  prop: string;
+  user: IUser | null;
+  isAuth: boolean;
 }
 
 function state(): ExampleStateInterface {
   return {
-    prop: 'hello'
+    user: null,
+    isAuth: false
   }
 }
 

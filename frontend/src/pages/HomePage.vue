@@ -11,7 +11,7 @@ export default {
   name: 'HomePage',
   setup() {
     const $store = useStore();
-    const prop = $store.state.example.prop
+    const prop = $store.state.example.isAuth
 
     return {
       prop,

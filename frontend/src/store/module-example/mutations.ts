@@ -2,8 +2,9 @@ import { MutationTree } from 'vuex';
 import { ExampleStateInterface } from './state';
 
 const mutation: MutationTree<ExampleStateInterface> = {
-  someMutation ( state: ExampleStateInterface, opened) {
-    state.prop = opened;
+  someMutation ( state: ExampleStateInterface, user) {
+    state.user = user;
+    state.isAuth = true;
   }
 };
 
