@@ -5,15 +5,21 @@
         <q-toolbar-title>
           <RouterLink class="router_link" to="/"> Quasar App </RouterLink>
         </q-toolbar-title>
-        <RouterLink
-          v-if="isAuth"
-          class="router_link"
-          v-on:click="logoutHandler"
-          to="/login"
-          >Log Out</RouterLink
-        >
+        <div v-if="isAuth">
+          <span style="color: #b5b5b5; margin-right: 15px">
+            {{ emailUser }}
+          </span>
+          <RouterLink
+            class="router_link"
+            v-on:click="logoutHandler"
+            to="/login"
+          >
+            Log Out
+          </RouterLink>
+        </div>
+
         <RouterLink v-else class="router_link" to="/registration"
-          >Log In / Sing In {{ isAuth }}</RouterLink
+          >Log In / Sing In</RouterLink
         >
       </q-toolbar>
     </q-header>
@@ -37,9 +43,9 @@ let $q: any;
 export default {
   name: 'MainLayout',
   data() {
-    const isAuth = this.$store.state.example.isAuth;
     return {
-      isAuth: isAuth,
+      emailUser: this.$store.state.example.user?.email,
+      isAuth: this.$store.state.example.isAuth,
     };
   },
   methods: {
@@ -52,12 +58,14 @@ export default {
         } else {
           this.$store.commit('example/logout');
         }
-        this.isAuth = this.$store.state.example.isAuth;
+        (this.emailUser = this.$store.state.example.user?.email),
+          (this.isAuth = this.$store.state.example.isAuth);
       }
     },
     logoutHandler() {
       removeTokenfromLocalStorage('token');
       this.$store.commit('example/logout');
+      this.isAuth = this.$store.state.example.isAuth;
       $q.notify({
         type: 'positive',
         message: 'You logged out.',
@@ -65,7 +73,7 @@ export default {
     },
   },
   watch: {
-    '$store.state.example': {
+    '$store.state.example.isAuth': {
       handler() {
         this.checkAuth();
       },

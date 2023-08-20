@@ -67,6 +67,7 @@ export default {
         if (data) {
           setTokenToLocalStorage('token', data.token);
           this.$store.commit('example/login', data);
+          this.$router.push('/');
           $q.notify({
             type: 'positive',
             message: 'You are logged in',

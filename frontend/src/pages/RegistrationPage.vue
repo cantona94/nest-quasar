@@ -63,6 +63,7 @@ export default {
           password: this.registration.password,
         };
         await instance.post('user', userData);
+        this.$router.push('/login');
         $q.notify({
           type: 'positive',
           message: 'You are registered!',
