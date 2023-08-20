@@ -33,7 +33,6 @@
 
 <script>
 import { useQuasar } from 'quasar';
-import exampleModule from 'src/store/module-example';
 import { instance } from '../boot/axios';
 import { setTokenToLocalStorage } from '../helpers/localStorage.helper';
 let $q;
@@ -67,7 +66,7 @@ export default {
         const { data } = await instance.post('auth/login', userData);
         if (data) {
           setTokenToLocalStorage('token', data.token);
-          this.$store.commit('example/someMutation', data);
+          this.$store.commit('example/login', data);
           $q.notify({
             type: 'positive',
             message: 'You are logged in',
